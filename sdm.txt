@@ -1,0 +1,103 @@
+1. create new folder AWStesting in directory -->cmd ->npm init
+2. npm install express
+3. open vs code -> open folder(AWSTesting)-> create file (server.js).
+4. create a new folder (public)-> create index.html,form.html
+5. in server.js
+	const express=require("express");
+	const app=express();
+const path=require("path");
+
+app.get("/",function(req,res){
+res.sendFile(path.join(__dirname,"/public/index.html"));
+});
+
+app.get("/",function(req,res){
+res.sendFile(path.join(__dirname,"/public/form.html"));
+});
+app.listen(3000);
+console.log("port:3000");
+
+6. in index.html
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Index</title>
+</head>
+<body>
+    <form action="/form">
+        <h1>Hello</h1>
+        <h1>Welcome to home page</h1>
+        <h3>please click on the button to open the form </h3>
+        <button type="submit">click me</button>
+    </form>
+</body>
+</html>
+
+
+7. in form.html
+
+<html lang="en">
+    <head>
+        <title>
+            form
+        </title>
+    </head>
+    <body>
+        <form>
+            <label for="name">Name</label>
+            <input type="text" id="name" placeholder="Enter name"><br/>
+            <label for="age">Age</label>
+            <input type="number"id="age"><br/>
+            
+            <label for="gender">Gender</label>
+            <input type="radio"id="gen"name="gender">Male &nbsp; &nbsp;
+
+            <input type="radio"id="gen"name="gender">Female <br/>
+
+        </form>
+    </body>
+
+</html>
+
+8. Create the dockerFile
+
+From node:12
+workDIR "S:\CDAC\SDM\AWSTesting"
+COPY PACKAGE .JSON/AWSTESTING
+RUN npm install
+COPY ./awstesting
+CMD node server.js
+EXPOSE 8000
+
+9. Create .gitignore
+	node_modules
+
+10. create folder in the directory (gitrepo) ->cmd
+in cmd-> git clone "  "
+- after cloning copy paste the AWSTesting folder in git repository folder
+- git status -> git add . ->git commit -m"hello" ->git push
+
+11. now open AWS -> sign in AWS
+
+12. select EC2 -> instance -> launch Instance
+
+13. Name ->select amazon linux -> create key pair->allow ssh
+	 -> .ppk -> ok launch instance
+
+14.ction ->connect -> successfull
+
+15. Now in terminal
+ 
+- ls -> git -v 
+- if git not found then ->sudo yum update 
+  ->sudo yum install git 
+  -> sudo yum install docker
+  ->sudo systemctl start docker
+  ->sudo systemctl enable docker
+  ->sudo systemctl status docker
+  -> git clone " "
+  ->ls -> cd AWS/ -> ls ->cd AWSTesting/ ->ls 
+  -> sudo docker build -t awstestingapp
+  -> sudo docker images
+  ->sudo docker run -d -p 8000:3000 awstestingapp
